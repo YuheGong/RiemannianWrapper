@@ -1,0 +1,229 @@
+ALRBallInACupSimpleDense-v0:
+  name: Ball_In_A_Cup + SAC
+  algorithm: sac
+  algo_params:
+    batch_size: 50
+    learning_rate: 0.0001
+    n_steps: 20000
+    total_timesteps: 5.e+7
+    special_policy: CustomActorCriticPolicy
+    special_callback: ALRBallInACupCallback
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:ALRBallInACupSimpleDense-v0
+    num_envs: 8
+    wrapper: VecNormalize
+
+
+HoleReacherDense-v0:
+  name: HoleReacherDense + SAC
+  algorithm: sac
+  algo_params:
+    batch_size: 50
+    learning_rate: 0.0001
+    n_steps: 20000
+    total_timesteps: 1.e+6
+    special_policy: MlpPolicy
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:HoleReacherDense-v0
+    num_envs: 8
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 500
+
+
+DeepMindBallInCup-v0:
+  name: DeepMind_Ball_In_Cup + SAC
+  algorithm: ddpg
+  algo_params:
+    batch_size: 256
+    learning_rate: 0.0001
+    n_steps: 16384
+    total_timesteps: 1.e+6
+    policy: MlpPolicy
+    special_callback: DMbicCallback
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:DeepMindBallInCup-v0
+    num_envs: 1
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 500
+
+
+DeepMindBallInCup-v1:
+  name: DeepMind_Ball_In_Cup + SAC
+  algorithm: sac
+  algo_params:
+    batch_size: 50
+    learning_rate: 0.0001
+    n_steps: 20000
+    total_timesteps: 1.e+6
+    policy: MlpPolicy
+    special_callback: DMbicCallback
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:DeepMindBallInCup-v1
+    num_envs: 1
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 500
+
+
+DeepMindBallInCup-v2:
+  name: DeepMind_Ball_In_Cup + SAC
+  algorithm: sac
+  algo_params:
+    batch_size: 50
+    learning_rate: 0.0001
+    n_steps: 20000
+    total_timesteps: 1.e+6
+    policy: MlpPolicy
+    special_callback: DMbicCallback
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:DeepMindBallInCup-v2
+    num_envs: 10
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 500
+
+
+DeepMindBallInCupDense-v0:
+  name: DeepMind_Ball_In_Cup + DDPG
+  algorithm: ddpg
+  algo_params:
+    batch_size: 50
+    learning_rate: 0.0001
+    n_steps: 20000
+    total_timesteps: 1.e+6
+    policy_type: off_policy
+    policy: MlpPolicy
+    special_callback: DMbicCallback
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:DeepMindBallInCupDense-v0
+    num_envs: 1
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 500
+
+
+DeepMindBallInCupDense-v1:
+  name: DeepMind_Ball_In_Cup + SAC
+  algorithm: sac
+  algo_params:
+    batch_size: 50
+    learning_rate: 0.0001
+    n_steps: 20000
+    total_timesteps: 1.e+6
+    policy: MlpPolicy
+    special_callback: DMbicCallback
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:DeepMindBallInCupDense-v1
+    num_envs: 1
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 500
+
+
+DeepMindBallInCupDense-v2:
+  name: DeepMind_Ball_In_Cup + SAC
+  algorithm: sac
+  algo_params:
+    batch_size: 50
+    learning_rate: 0.0001
+    n_steps: 20000
+    total_timesteps: 1.e+6
+    policy: MlpPolicy
+    special_callback: DMbicCallback
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:DeepMindBallInCupDense-v2
+    num_envs: 1
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 500
+
+ALRReacher-v0:
+  algorithm: ppo
+  algo_params:
+    batch_size: 64
+    learning_rate: 0.0001
+    n_steps:  16384
+    total_timesteps: 5.e+6
+    special_policy: MlpPolicy
+    policy_kwargs:
+      activation_fn: tanh
+      pi: 256
+      qf: 256
+  env_params:
+    env_name: alr_envs:ALRReacher-v0
+    num_envs: 10
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 1000
+
+ALRLongReacher-v0:
+  algorithm: ppo
+  algo_params:
+    batch_size: 64
+    learning_rate: 0.0001
+    n_steps:  16384
+    total_timesteps: 2.e+6
+    special_policy: MlpPolicy
+  env_params:
+    env_name: alr_envs:ALRLongReacher-v0
+    num_envs: 10
+    wrapper: VecNormalize
+  eval_env:
+    n_eval_episode: 10
+    eval_freq: 1000
+
+DeepMindWalkerDense-v0:
+  name: DeepMind_Walker + PPO
+  algorithm: ppo
+  algo_params:
+    batch_size: 50
+    learning_rate: 0.0001
+    n_steps: 2000
+    total_timesteps: 2.e+6
+    special_policy: MlpPolicy
+  env_params:
+    env_name: alr_envs:DeepMindWalkerDense-v0
+    num_envs: 8
+    wrapper: VecNormalize

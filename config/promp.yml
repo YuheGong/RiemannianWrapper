@@ -1,0 +1,351 @@
+### DeepMind Ball In Cup ENV with different reward function
+DeepMindBallInCupProMP-v0:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 10
+    sigma0: 1
+    popsize: 10
+    iteration: 300
+  env_params:
+    env_name: f'dmc_ball_in_cup-catch_detpmp-v0'
+
+DeepMindBallInCupDenseProMP-v0:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 10
+    sigma0: 1
+    popsize: 50
+    iteration: 1000
+  env_params:
+    env_name: f'dmc_ball_in_cup-catch_dense_detpmp-v0'
+
+DeepMindBallInCupProMP-v1:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 10
+    sigma0: 1
+    popsize: 10
+    iteration: 300
+  env_params:
+    env_name: f'dmc_ball_in_cup-catch_detpmp-v1'
+
+DeepMindBallInCupDenseProMP-v1:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 10
+    sigma0: 1
+    popsize: 10
+    iteration: 300
+  env_params:
+    env_name: f'dmc_ball_in_cup-catch_dense_detpmp-v1'
+
+DeepMindBallInCupProMP-v2:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 10
+    sigma0: 1
+    popsize: 10
+    iteration: 300
+  env_params:
+    env_name: f'dmc_ball_in_cup-catch_detpmp-v2'
+
+DeepMindBallInCupDenseProMP-v2:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 10
+    sigma0: 1
+    popsize: 10
+    iteration: 300
+  env_params:
+    env_name: f'dmc_ball_in_cup-catch_dense_detpmp-v2'
+
+
+### ALR Reacher with different goal
+ALRReacherBalanceProMP-v0:
+  name: ALRReacher + DMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 13000
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMP-v0'
+
+ALRReacherBalanceProMP-v1:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 5000
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMP-v1'
+
+ALRReacherBalanceProMP-v2:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 7500
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMP-v2'
+
+ALRReacherBalanceProMP-v3:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 1000
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMP-v3'
+
+ALRReacherBalanceProMP-v4:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 1000
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMP-v4'
+
+ALRReacherBalanceSparseProMP-v2:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 5000
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceSparseProMP-v2'
+
+
+
+ALRReacherBalanceProMPIP-v2:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 500
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMPIP-v2'
+
+
+ALRReacherBalanceProMPIP-v3:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 50
+    sigma0: 0.001
+    popsize: 10
+    iteration: 889
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMPIP-v3'
+
+ALRReacherBalanceProMPIP-v4:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 50
+    sigma0: 0.001
+    popsize: 10
+    iteration: 889
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMPIP-v4'
+
+ALRReacherBalanceProMPIP-v5:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 3555
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMPIP-v5'
+
+ALRReacherBalanceProMPIP-v6:
+  name: ALRReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 3555
+    stop_criterion: opt < 3.2
+  env_params:
+    env_name: f'ALRReacherBalanceProMPIP-v6'
+
+
+GradientALRReacherBalanceSparseProMP-v0:
+  name: ALRReacher + ProMP
+  algorithm: GradientDescent
+  algo_params:
+    x_init: 0
+    dimension: 25
+    sigma0: 0.1
+    popsize: 10
+    iteration: 5000
+    stop_criterion: None
+  env_params:
+    env_name: f'ALRReacherBalanceSparseProMP-v2'
+
+
+FetchReacherProMP-v0:
+  name: FetchReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 30
+    sigma0: 1
+    popsize: 10
+    iteration: 1000
+    stop_criterion: opt < 1
+  env_params:
+    env_name: f'FetchReacherProMP-v0'
+
+FetchReacherProMP-v1:
+  name: FetchReacher + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 30
+    sigma0: 1
+    popsize: 10
+    iteration: 1000
+    stop_criterion: opt < 1
+  env_params:
+    env_name: f'FetchReacherProMP-v1'
+
+### MetaWorld
+MetaButtonPressDetPMP-v2:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0
+    dimension: 20
+    sigma0: 0.1
+    popsize: 10
+    iteration: 3000
+  env_params:
+    env_name: ButtonPressDetPMP-v2
+
+MetaPickAndPlaceProMP-v0:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0.01
+    dimension: 40
+    sigma0: 1
+    popsize: 10
+    iteration: 5000
+  env_params:
+    env_name: MetaPickAndPlaceProMP-v0
+
+
+dmcWalkerDenseProMP-v0:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1.e-7
+    dimension: 300
+    sigma0: 0.1
+    popsize: 10
+    iteration: 1000
+  env_params:
+    env_name: f'dmcWalkerDenseProMP-v0'
+
+
+dmcCheetahDenseProMP-v0:
+  name: DeepMind_Ball_In_Cup + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 30
+    sigma0: 10
+    popsize: 10
+    iteration: 1000
+  env_params:
+    env_name: f'dmcCheetahDenseProMP-v0'
+
+
+Meta-v2:
+  name: Meta + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 20
+    sigma0: 0.1
+    popsize: 10
+    iteration: 3000
+  env_params:
+    env_name: alr_envs
+
+
+HopperXYJumpMiddleProMP-v0:
+  name: Meta + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 1
+    dimension: 30
+    sigma0: 1
+    popsize: 10
+    iteration: 4000
+  env_params:
+    env_name: alr_envs:HopperXYJumpMiddleProMP-v0
+
+
+HopperXYJumpStepProMP-v0:
+  name: Meta + ProMP
+  algorithm: cmaes
+  algo_params:
+    x_init: 0.01
+    dimension: 30
+    sigma0: 0.1
+    popsize: 10
+    iteration: 1600
+  env_params:
+    env_name: alr_envs:HopperXYJumpStepProMP-v0
