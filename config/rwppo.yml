@@ -365,7 +365,7 @@ Meta-v2:
       pi: 256
       vf: 256
   env_params:
-    env_name: alr_envs
+    env_name: modified_envs
     num_envs: 10
     wrapper: None
   eval_env:
