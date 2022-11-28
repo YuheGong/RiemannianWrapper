@@ -5,7 +5,6 @@ from utils.model import model_building, model_learn, cmaes_model_training
 from utils.yaml import write_yaml, read_yaml
 import numpy as np
 import gym
-import cma
 from torch.utils.tensorboard import SummaryWriter
 from utils.csv import csv_save
 
@@ -32,7 +31,7 @@ def step_based(algo: str, env_id: str, seed=None):
     model = model_building(data, env, seed)
 
     # csv file path
-    data["path_in"] = data["path"] + '/' + data['algorithm'].upper() + '_1'
+    data["path_in"] = data["path"] #+ '/' + data['algorithm'].upper() + '_1'
     data["path_out"] = data["path"] + '/data.csv'
 
     try:
@@ -53,72 +52,6 @@ def step_based(algo: str, env_id: str, seed=None):
         print('')
         print('training FINISH, save the model and config file to ' + data['path'])
 
-def episodic(algo, env_id, stop_cri, seed=None):
-    file_name = algo + ".yml"
-    if "Meta" in args.env_id:
-        data = read_yaml(file_name)["Meta-v2"]
-        data['env_params']['env_name'] = data['env_params']['env_name'] + ":" + args.env_id
-    else:
-        data = read_yaml(file_name)[env_id]
-
-    env_name = data["env_params"]["env_name"]
-
-    if 'Meta' in env_id:
-        from alr_envs.utils.make_env_helpers import make_env
-        env = make_env(env_name, seed)
-    elif "Hopper" in env_id:
-        env = gym.make(env_name)
-    else:
-        env = gym.make(env_name[2:-1], seed=seed)
-
-    params = (data["algo_params"]['x_init'] * np.random.rand(data["algo_params"]["dimension"]))
-    #params = (data["algo_params"]['x_init'] * np.zeros(data["algo_params"]["dimension"]).reshape(5,4)).reshape(20)
-    ALGOS = {
-        'cmaes': cma,
-    }
-    if data["algorithm"] == "cmaes":
-        algorithm = ALGOS[data["algorithm"]].CMAEvolutionStrategy(x0=params, sigma0=data["algo_params"]["sigma0"], inopts={"popsize": data["algo_params"]["popsize"]})
-
-
-
-    # logging
-    path = "alr_envs:" + env_id
-    path = logging(path, algo)
-    log_writer = SummaryWriter(path)
-
-    t = 0
-    opts = []
-    success = False
-    success_mean = []
-    success_full = []
-    print("algo", algorithm)
-    opt_best = 0
-
-    try:
-        if stop_cri:
-            while t < data["algo_params"]["iteration"] and not success:
-                algorithm, env, success_full, success_mean, path, log_writer, opts, t, opt_best= \
-                    cmaes_model_training(algorithm, env, success_full, success_mean, path, log_writer,
-                                         opts, t, env_id, opt_best)
-        else:
-            while t < data["algo_params"]["iteration"]:
-                algorithm, env, success_full, success_mean, path, log_writer, opts, t, opt_best = \
-                    cmaes_model_training(algorithm, env, success_full, success_mean, path,
-                                         log_writer, opts, t, env_id, opt_best)
-    except KeyboardInterrupt:
-        data["path_in"] = path
-        data["path_out"] = path + '/data.csv'
-        csv_save(data)
-        np.save(path + "/algo_mean.npy", algorithm.mean)
-        print('')
-        print('training interrupt, save the model to ' + path)
-    else:
-        data["path_in"] = path
-        data["path_out"] = path + '/data.csv'
-        csv_save(data)
-        np.save(path + "/algo_mean.npy", algorithm.mean)
-        print('')
-        print('training Finish, save the model to ' + path)
 
 
 if __name__ == '__main__':
@@ -141,8 +74,6 @@ if __name__ == '__main__':
     EPISODIC = ["dmp", "promp"]
     if algo in STEP_BASED:
         step_based(algo, env_id, seed=args.seed)
-    elif algo in EPISODIC:
-        episodic(algo, env_id, stop_cri, seed=args.seed)
     else:
         print("the algorithm " + algo + " is false or not implemented")
 

@@ -13,7 +13,7 @@ from stable_baselines3.common.distributions import DiagGaussianDistribution, Dis
 from wrapper.manifolds import Sphere, Euclidean
 from scipy.stats import rv_continuous
 import numpy as np
-'''
+
 def sum_independent_dims(tensor: th.Tensor) -> th.Tensor:
     """
     Continuous actions are usually considered to be independent,
@@ -28,7 +28,7 @@ def sum_independent_dims(tensor: th.Tensor) -> th.Tensor:
         tensor = tensor.sum()
     return tensor
 
-
+'''
 class RGD_distribution(rv_continuous):
     #Riemannian Gaussian distribution
 
@@ -66,6 +66,31 @@ class RiemannianGaussianDistribution(DiagGaussianDistribution):
         self.mean_actions = None
         self.log_std = None
 
+    def log_prob(self, obs, actions: th.Tensor) -> th.Tensor:
+        """
+        Get the log probabilities of actions according to the distribution.
+        Note that you must first call the ``proba_distribution()`` method.
+
+        :param actions:
+        :return:
+        """
+        log_prob = self.distribution.log_prob(obs, actions)
+        return sum_independent_dims(log_prob)
+    def get_actions(self, obs, deterministic: bool = False) -> th.Tensor:
+        """
+        Return actions according to the probability distribution.
+
+        :param deterministic:
+        :return:
+        """
+        if deterministic:
+            return self.mode()
+        return self.sample(obs)
+
+    def sample(self, obs) -> th.Tensor:
+        # Reparametrization trick to pass gradients
+        return self.distribution.rsample(obs)
+
     def proba_distribution(self, mean_actions: th.Tensor, log_std: th.Tensor) -> "DiagGaussianDistribution":
         """
         Create the distribution given its parameters (mean, std)
@@ -78,6 +103,7 @@ class RiemannianGaussianDistribution(DiagGaussianDistribution):
         self.distribution = ManifoldNormal(self.manifold, mean_actions, action_std)
         #self.distribution = Normal(mean_actions, action_std)
         return self
+
     '''
     def proba_distribution_net(self, latent_dim: int, log_std_init: float = 0.0) -> Tuple[nn.Module, nn.Parameter]:
         """

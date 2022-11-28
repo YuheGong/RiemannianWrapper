@@ -35,8 +35,9 @@ class Euclidean():
     def log(self, X, Y):
         return Y - X
 
-    def rand(self):
-        return th.random.randn(*self._shape)
+    def rand(self, dim):
+        #return th.random.randn(*self._shape)
+        return th.randn(dim)
 
     def transp(self, X1, X2, G):
         return G
@@ -88,8 +89,9 @@ class Sphere():
         P = P * self.norm(None, P)
         return P
 
-    def rand(self):
-        Y = th.random.randn(*self._shape)
+    def rand(self, dim):
+        #Y = th.random.randn(*self._shape)
+        Y = th.randn(dim)
         return self.normalize(Y)
 
     def transp(self, X, Y, U):
@@ -107,3 +109,4 @@ class Sphere():
 
     def normalize(self, X):
         return X / self.norm(None, X)
+

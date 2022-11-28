@@ -7,9 +7,9 @@ from stable_baselines3 import PPO, A2C, DQN, HER, SAC, TD3, DDPG
 import numpy as np
 import matplotlib.pyplot as plt
 from utils.yaml import write_yaml, read_yaml
-import alr_envs
-from stable_baselines3.common.vec_env.obs_dict_wrapper import  ObsDictWrapper
-from stable_baselines3.common.vec_env import VecVideoRecorder, DummyVecEnv
+import modified_envs
+from wrapper.wrapper_MLP import RWPPO
+from utils.model import model_building
 
 def make_env(env_id, rank):
     def _init():
@@ -26,11 +26,11 @@ def step_based(algo: str, env_id: str, model_id: str, step: str):
     #env = DummyVecEnv(env_fns=[make_env(env_id, i) for i in range(num_envs)])
     #env = VecNormalize.load(stats_path, env)
     #env = ObsDictWrapper(env)
-    env = gym.make("alr_envs:" + env_id)
+    env = gym.make("modified_envs:" + env_id)
 
     model_path = os.path.join(path, "eval/best_model")
 
-    #model_path = os.path.join(path, "model")
+    # model_path = os.path.join(path, "model")
 
     ALGOS = {
         'a2c': A2C,
@@ -39,10 +39,12 @@ def step_based(algo: str, env_id: str, model_id: str, step: str):
         'her': HER,
         'sac': SAC,
         'ppo': PPO,
+        'rwppo': RWPPO,
         'td3': TD3
     }
+
     ALGO = ALGOS[algo]
-    model = ALGO.load(model_path)
+    model = ALGO.load(model_path, env=env)
 
     obs = env.reset()
     rewards = 0
@@ -58,6 +60,7 @@ def step_based(algo: str, env_id: str, model_id: str, step: str):
             rewards += reward
             #env.render(mode="rgb_array")
             env.render(mode="human")
+
         env.close()
     elif "Meta" in env_id:
         print("meta")
@@ -65,26 +68,29 @@ def step_based(algo: str, env_id: str, model_id: str, step: str):
             #time.sleep(0.05)
             action, _states = model.predict(obs, deterministic=True)
             obs, rewards, dones, info = env.step(action)
+            time.sleep(0.1)
             infos.append(info['obj_to_target'])
             reward += rewards
+            print("rewrads", i, reward)
             env.render(False)
             #if i == 59 or i==89 or i == 199 or i == 19 or i==1:
             #   time.sleep(5)
         env.close()
         infos = np.array(infos)
-        print(np.min(infos), reward)
         a = 1
     else:
         for i in range(int(step)):
             #time.sleep(0.05)
             action, _states = model.predict(obs, deterministic=True)
             obs, rewards, dones, info = env.step(action)
-            reward += info[0]["reward"]
-            jump_height.append(info[0]["height"])
-            goal_dist.append(info[0]["goal_dist"])
+            reward += rewards
+            print("rewrads", i, reward, action)
+            #reward += info[0]["reward"]
+            #jump_height.append(info[0]["height"])
+            #goal_dist.append(info[0]["goal_dist"])
             env.render()
-            if i == 0 or i==50-1 or i==100-1 or i==150-1 or i==199 or i==249:
-                time.sleep(5)
+            #if i == 0 or i==50-1 or i==100-1 or i==150-1 or i==199 or i==249:
+            #    time.sleep(5)
         env.close()
 
         import matplotlib.pyplot as plt
@@ -162,7 +168,7 @@ if __name__ == "__main__":
     model_id = args.model_id
     step = args.step
 
-    STEP_BASED = ["ppo", "sac", "td3"]
+    STEP_BASED = ["ppo", "sac", "td3", "rwppo"]
     EPISODIC = ["dmp", "promp"]
 
 
