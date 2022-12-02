@@ -2,7 +2,6 @@ import gym
 import os
 from gym import wrappers
 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
-from stable_baselines3.common.vec_env.obs_dict_wrapper import  ObsDictWrapper
 
 def make_env(env_name, path, rank, seed=0):
     def _init():

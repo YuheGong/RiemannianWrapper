@@ -30,7 +30,7 @@ def step_based(algo: str, env_id: str, model_id: str, step: str):
 
     model_path = os.path.join(path, "eval/best_model")
 
-    # model_path = os.path.join(path, "model")
+    #model_path = os.path.join(path, "model")
 
     ALGOS = {
         'a2c': A2C,
@@ -71,7 +71,7 @@ def step_based(algo: str, env_id: str, model_id: str, step: str):
             time.sleep(0.1)
             infos.append(info['obj_to_target'])
             reward += rewards
-            print("rewrads", i, reward)
+            print("rewrads", i, reward, action)
             env.render(False)
             #if i == 59 or i==89 or i == 199 or i == 19 or i==1:
             #   time.sleep(5)

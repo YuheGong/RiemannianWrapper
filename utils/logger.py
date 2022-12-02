@@ -11,7 +11,7 @@ from stable_baselines3.ppo import MlpPolicy
 import os
 import pickle
 import tensorflow as tf
-import alr_envs
+import modified_envs
 
 
 def logging(env_name, algorithm):

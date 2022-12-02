@@ -5,7 +5,7 @@ import gym
 import torch as th
 from gym import spaces
 from torch import nn
-from torch.distributions import Bernoulli, Categorical, Normal
+from torch.distributions import Bernoulli, Categorical, Normal, LogNormal
 from wrapper.dist_on_manifolds import ManifoldNormal
 
 from stable_baselines3.common.preprocessing import get_action_dim
@@ -13,6 +13,7 @@ from stable_baselines3.common.distributions import DiagGaussianDistribution, Dis
 from wrapper.manifolds import Sphere, Euclidean
 from scipy.stats import rv_continuous
 import numpy as np
+from geomstats.distributions.lognormal import LogNormal
 
 def sum_independent_dims(tensor: th.Tensor) -> th.Tensor:
     """

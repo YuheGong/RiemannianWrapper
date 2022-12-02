@@ -36,6 +36,7 @@ class MetaCallback(EvalCallback):
 
         super(MetaCallback, self).__init__(eval_env,
         callback_on_new_best,
+        None,
         n_eval_episodes,
         eval_freq,
         log_path,
@@ -45,6 +46,21 @@ class MetaCallback(EvalCallback):
         verbose,
         warn,)
 
+    def _log_success_callback(self, locals_: Dict[str, Any], globals_: Dict[str, Any]) -> None:
+        """
+        Callback passed to the  ``evaluate_policy`` function
+        in order to log the success rate (when applicable),
+        for instance when using HER.
+
+        :param locals_:
+        :param globals_:
+        """
+        info = locals_["info"]
+
+        if locals_["done"]:
+            maybe_is_success = info[0].get("is_success")
+            if maybe_is_success is not None:
+                self._is_success_buffer.append(maybe_is_success)
     def _on_step(self) -> bool:
 
         if self.eval_freq > 0 and self.n_calls % self.eval_freq == 0:
@@ -220,12 +236,7 @@ class HopperJumpCallback(EvalCallback):
 
 
 def callback_building(env, path, data):
-    if "Hopper" in data['env_params']['env_name']:
-        callback = HopperJumpCallback(env, best_model_save_path=path,
-                     n_eval_episodes=data['eval_env']['n_eval_episode'],
-                     log_path=path, eval_freq=data['eval_env']['eval_freq'],
-                     deterministic=True, render=False)
-    elif "Meta" in data['env_params']['env_name']:
+    if "Meta" in data['env_params']['env_name']:
         callback = MetaCallback(env, best_model_save_path=path,
                      n_eval_episodes=data['eval_env']['n_eval_episode'],
                      log_path=path, eval_freq=data['eval_env']['eval_freq'],

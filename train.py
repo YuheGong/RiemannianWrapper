@@ -9,7 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 from utils.csv import csv_save
 
 
-def step_based(algo: str, env_id: str, seed=None):
+def train(algo: str, env_id: str, seed=None):
     file_name = algo +".yml"
 
     if "Meta" in args.env_id:
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     #print("algo", algo)
     EPISODIC = ["dmp", "promp"]
     if algo in STEP_BASED:
-        step_based(algo, env_id, seed=args.seed)
+        train(algo, env_id, seed=args.seed)
     else:
         print("the algorithm " + algo + " is false or not implemented")
 

@@ -174,7 +174,7 @@ class CustomActorCriticPolicy(ActorCriticPolicy):
         :param deterministic: Whether to use stochastic or deterministic actions
         :return: Taken action according to the policy
         """
-        return self.get_distribution(observation).get_actions(observation[:, -4:-1], deterministic=deterministic)
+        return self.get_distribution(observation).get_actions(observation[:, -4:], deterministic=deterministic)
 
     def forward(self, obs: th.Tensor, deterministic: bool = False) -> Tuple[th.Tensor, th.Tensor, th.Tensor]:
         """
@@ -189,8 +189,8 @@ class CustomActorCriticPolicy(ActorCriticPolicy):
         # Evaluate the values for the given observations
         values = self.value_net(latent_vf)
         distribution = self._get_action_dist_from_latent(latent_pi)
-        actions = distribution.get_actions(obs=obs[:, -4:-1], deterministic=deterministic)
-        log_prob = distribution.log_prob(obs=obs[:, -4:-1], actions=actions)
+        actions = distribution.get_actions(obs=obs[:, -4:], deterministic=deterministic)
+        log_prob = distribution.log_prob(obs=obs[:, -4:], actions=actions)
         actions = actions.reshape((-1,) + self.action_space.shape)
         return actions, values, log_prob
 
@@ -219,6 +219,6 @@ class CustomActorCriticPolicy(ActorCriticPolicy):
         features = self.extract_features(obs)
         latent_pi, latent_vf = self.mlp_extractor(features)
         distribution = self._get_action_dist_from_latent(latent_pi)
-        log_prob = distribution.log_prob(obs[:, -4:-1], actions)
+        log_prob = distribution.log_prob(obs[:, -4:], actions)
         values = self.value_net(latent_vf)
         return values, log_prob, distribution.entropy()

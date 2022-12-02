@@ -1,35 +1,12 @@
-import time
-from typing import Any, Dict, List, Optional, Tuple, Type, Union
-
-import gym
-import numpy as np
-import torch as th
-
-from stable_baselines3.common import logger
-from stable_baselines3.common.base_class import BaseAlgorithm
-from stable_baselines3.common.buffers import RolloutBuffer
-from stable_baselines3.common.callbacks import BaseCallback
-from stable_baselines3.common.policies import ActorCriticPolicy
-from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
-from stable_baselines3.common.utils import safe_mean
-from stable_baselines3.common.vec_env import VecEnv
 from stable_baselines3.ppo import PPO
+#from geomstats.geometry.euclidean import Euclidean
+from geomstats.geometry.spd_matrices import SPDMatrices
 
-
-import warnings
 from typing import Any, Dict, Optional, Type, Union
 
-import numpy as np
 import torch as th
-from gym import spaces
-from torch.nn import functional as F
-
-from stable_baselines3.common import logger
-from stable_baselines3.common.on_policy_algorithm import OnPolicyAlgorithm
 from stable_baselines3.common.policies import ActorCriticPolicy
-from stable_baselines3.common.type_aliases import GymEnv, MaybeCallback, Schedule
-from stable_baselines3.common.utils import explained_variance, get_schedule_fn
-from wrapper.riem_gaus_dist import RiemannianGaussianDistribution
+from stable_baselines3.common.type_aliases import GymEnv,  Schedule
 from wrapper.manifolds import Sphere, Euclidean
 
 
@@ -115,6 +92,8 @@ class RWPPO(PPO):
         dimension = env.action_space.shape[0]
         #self.manifolds = Euclidean(dimension)
         self.manifolds = Sphere(dimension)
+        #self.manifolds = Euclidean(dimension)
+        #self.manifolds = SPDMatrices(dimension)
         if policy_kwargs is not None:
             policy_kwargs["manifolds"] = self.manifolds
         else:
