@@ -5,7 +5,7 @@ from stable_baselines3.common.noise import NormalActionNoise
 from .callback import callback_building
 from wrapper.wrapper_MLP import RWPPO
 from wrapper.custom_policy import CustomActorCriticPolicy
-from geoopt.optim import RiemannianAdam, RiemannianSGD
+#from geoopt.optim import RiemannianAdam, RiemannianSGD
 
 
 
