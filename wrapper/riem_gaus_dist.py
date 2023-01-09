@@ -5,15 +5,14 @@ import gym
 import torch as th
 from gym import spaces
 from torch import nn
-from torch.distributions import Bernoulli, Categorical, Normal, LogNormal
-from wrapper.dist_on_manifolds import ManifoldNormal
+from torch.distributions import Bernoulli, Categorical, Normal
+from wrapper.lognormal import CombineNormal
 
 from stable_baselines3.common.preprocessing import get_action_dim
 from stable_baselines3.common.distributions import DiagGaussianDistribution, Distribution
 from wrapper.manifolds import Sphere, Euclidean
 from scipy.stats import rv_continuous
 import numpy as np
-from geomstats.distributions.lognormal import LogNormal
 
 def sum_independent_dims(tensor: th.Tensor) -> th.Tensor:
     """
@@ -101,7 +100,7 @@ class RiemannianGaussianDistribution(DiagGaussianDistribution):
         :return:
         """
         action_std = th.ones_like(mean_actions) * log_std.exp()
-        self.distribution = ManifoldNormal(self.manifold, mean_actions, action_std)
+        self.distribution = CombineNormal(self.manifold, mean_actions, action_std)
         #self.distribution = Normal(mean_actions, action_std)
         return self
 

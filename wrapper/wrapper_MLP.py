@@ -91,8 +91,11 @@ class RWPPO(PPO):
 
         dimension = env.action_space.shape[0]
         #self.manifolds = Euclidean(dimension)
-        self.manifolds = Sphere(dimension)
-        #self.manifolds = Euclidean(dimension)
+        #self.manifolds = Sphere(dimension)
+        self.manifolds = {}
+        self.manifolds['position'] = Sphere(dimension)
+        self.manifolds['gripper'] = Euclidean(dimension)
+        self.manifolds['orientation'] = Euclidean(dimension)
         #self.manifolds = SPDMatrices(dimension)
         if policy_kwargs is not None:
             policy_kwargs["manifolds"] = self.manifolds

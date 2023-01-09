@@ -1,7 +1,7 @@
 import argparse
 from utils.env import env_maker, env_save
 from utils.logger import logging
-from utils.model import model_building, model_learn, cmaes_model_training
+from utils.model import model_building, model_learn
 from utils.yaml import write_yaml, read_yaml
 import numpy as np
 import gym

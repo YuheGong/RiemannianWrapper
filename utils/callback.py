@@ -36,7 +36,6 @@ class MetaCallback(EvalCallback):
 
         super(MetaCallback, self).__init__(eval_env,
         callback_on_new_best,
-        None,
         n_eval_episodes,
         eval_freq,
         log_path,
@@ -44,7 +43,7 @@ class MetaCallback(EvalCallback):
         deterministic,
         render,
         verbose,
-        warn,)
+        warn)
 
     def _log_success_callback(self, locals_: Dict[str, Any], globals_: Dict[str, Any]) -> None:
         """
@@ -236,6 +235,7 @@ class HopperJumpCallback(EvalCallback):
 
 
 def callback_building(env, path, data):
+    print("path", path)
     if "Meta" in data['env_params']['env_name']:
         callback = MetaCallback(env, best_model_save_path=path,
                      n_eval_episodes=data['eval_env']['n_eval_episode'],
