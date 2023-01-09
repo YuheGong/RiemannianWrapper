@@ -6,9 +6,7 @@ from torch.distributions import constraints, Normal
 from torch.distributions.exp_family import ExponentialFamily
 from torch.distributions.utils import _standard_normal, broadcast_all
 from numbers import Real
-from mayavi import mlab
 import matplotlib.colors as pltc
-from wrapper.draw import plot_sphere, plot_sphere_tangent_plane, plot_gaussian_mesh_on_tangent_plane, plot_vector_on_tangent_plane, draw_arrow_mayavi
 from wrapper.manifolds import Euclidean, Sphere
 from geomstats.distributions.lognormal import LogNormal
 from .von_mises_fisher import VonMisesFisher
